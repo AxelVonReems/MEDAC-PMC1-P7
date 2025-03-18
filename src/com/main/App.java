@@ -19,6 +19,9 @@ public class App {
             usuario = Usuario.registrar(usuarioRegistro, passwordRegistro);
         } while (usuario == null);
 
+        // TODO - DELETE AFTER TESTING
+        System.out.println(usuario.getCredenciales());
+
         do {
             System.out.println("=== INICIO DE SESIÓN ===");
             System.out.print("Usuario: ");

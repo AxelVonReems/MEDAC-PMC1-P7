@@ -13,22 +13,23 @@ public class Usuario {
     }
 
     public boolean login(String usuarioLogin, String passwordLogin) {
-        // No esta permitido realizar ninguna operacion con los parametros salvo equals.
-        usuarioLogin = usuarioLogin.toLowerCase();
-        passwordLogin = passwordLogin.toLowerCase();
-        // No esta permitido realizar ninguna operacion con los parametros salvo equals.
-        if (credenciales.equals(usuarioLogin + ";" + passwordLogin)) {
+        String[] credencialesSeparados = credenciales.split(SEPARADOR);
+
+        if (
+            credencialesSeparados[0].equalsIgnoreCase(usuarioLogin.trim()) &&
+            credencialesSeparados[1].equalsIgnoreCase(passwordLogin.trim())
+            ) {
             System.out.println("Bienvenido a tu cuenta!");
             return true;
         } else {
-            System.out.println("Los credenciales no son válidos");
+            System.out.println("Las credenciales no son válidas");
             return false;
         }
     }
 
     public static Usuario registrar(String username, String password) {
-        username = username.toLowerCase();
-        password = password.toLowerCase();
+        username = username.trim().toLowerCase();
+        password = password.trim().toLowerCase();
 
         if (validarUsuario(username) && validarPassword(username, password)) {
             System.out.println("Registro exitoso.\n");
@@ -39,16 +40,15 @@ public class Usuario {
 
     public static boolean validarUsuario(String username) {
         if (
-            username.length() == 0 ||
+            username.isEmpty() ||
             username.contains(" ") ||
             username.contains(";") ||
-            // question about admins
-            (username.charAt(0) == '_' && !username.equals("_administrador"))
-            // question about admins
+            username.charAt(0) != '_' ||
+            username.equals("_administrador")
             ) {
             System.out.println(
-                "Nombre del usuario no puede ser vacío, contener espacios, simbolos ';' ni empezar con guion bajo " +
-                "si el ususario no sea el administrador"
+                "Nombre del usuario tiene que empezar con guion bajo si el ususario no sea el administrador, no " +
+                "puede ser vacío, contener espacios, simbolos ';'"
             );
             return false;
         } else {
@@ -58,13 +58,13 @@ public class Usuario {
 
     public static boolean validarPassword(String username, String password) {
         if (
+            password.isEmpty() ||
             password.contains(" ") ||
             password.contains(";") ||
-            // question about admins
-            (username.equals("_administrador") && password.equals("admin")) ||
-            // question about admins
-            (password.length() < 4) ||
-            (username.equals(password.toLowerCase()))
+            (username.equals("administrador") && password.equals("admin")) ||
+            password.length() < 4 ||
+            username.equals("_" + password) ||
+            username.equals(password)
             ) {
             System.out.println(
                 "Contraseña no puede ser vacía, igual al nombre del usuario, contener espacios, simbolos ';' ni ser " +
