@@ -17,7 +17,7 @@ public class Usuario {
 
         if (
             credencialesSeparados[0].equalsIgnoreCase(usuarioLogin.trim()) &&
-            credencialesSeparados[1].equalsIgnoreCase(passwordLogin.trim())
+            credencialesSeparados[1].equals(passwordLogin.trim())
             ) {
             System.out.println("Bienvenido a tu cuenta!");
             return true;
@@ -29,7 +29,7 @@ public class Usuario {
 
     public static Usuario registrar(String username, String password) {
         username = username.trim().toLowerCase();
-        password = password.trim().toLowerCase();
+        password = password.trim();
 
         if (validarUsuario(username) && validarPassword(username, password)) {
             System.out.println("Registro exitoso.\n");
