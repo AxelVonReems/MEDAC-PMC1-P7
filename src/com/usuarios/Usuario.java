@@ -43,7 +43,7 @@ public class Usuario {
             username.isEmpty() ||
             username.contains(" ") ||
             username.contains(";") ||
-            username.charAt(0) != '_' ||
+            (username.charAt(0) != '_' && !username.equals("administrador")) ||
             username.equals("_administrador")
             ) {
             System.out.println(
@@ -75,5 +75,4 @@ public class Usuario {
             return true;
         }
     }
-
 }

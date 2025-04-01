@@ -32,7 +32,7 @@ public class Notas {
             if (subject.equalsIgnoreCase("stop")) {
                 break;
             }
-            System.out.println("Introduce una nota. Para los números decimales, usa una coma.:");
+            System.out.println("Introduce una nota. Para los números decimales, usa simbolo de coma:");
             grade = input.nextDouble();
             input.nextLine();
             while (grade > 10) {
@@ -116,6 +116,7 @@ public class Notas {
             gradeTotal += i;
         }
         gradeAvg = gradeTotal / gradesList.size();
+        gradeAvg = Math.round(gradeAvg * 100.0) / 100.0;
 
         for (String i : gradesList.keySet()) {
             Double value = gradesList.get(i);
